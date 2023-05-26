@@ -7,7 +7,7 @@
 **Mg-Traits utilizes the following tools**:  
 [BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide)  
 [PEAR](https://cme.h-its.org/exelixis/web/software/pear)  
-[FragGeneScan](https://omics.informatics.indiana.edu/FragGeneScan/)  
+[FragGeneScanRs](https://github.com/unipept/FragGeneScanRs)  
 [UProC](http://uproc.gobics.de/)  
 [EMBOSS](http://emboss.sourceforge.net/)  
 [VSEARCH](https://github.com/torognes/vsearch)  
