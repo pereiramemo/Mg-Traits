@@ -16,15 +16,11 @@
 [R](https://www.r-project.org)  
 [tidyverse](https://www.tidyverse.org) R package  
 
-**and databases**: 
-[Pfam (UProC DB)](http://uproc.gobics.de)
-[Resfams](http://www.dantaslab.org/resfams)
-[dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)
-[Silva SSU nr99 (DADA2)](https://zenodo.org/record/3986799)
-
-
-
-Once these tools are installed, the configuration file [conf.bash](https://github.com/pereiramemo/metagenomic_pipelines/blob/main/mg_traits/mg_traits_lite_conf.sh) has to be edited to set the correct paths of the variables needed to run Mg-Traits.
+**and databases**:  
+[Pfam (UProC DB)](http://uproc.gobics.de)  
+[Resfams](http://www.dantaslab.org/resfams)  
+[dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)  
+[Silva SSU nr99 (DADA2)](https://zenodo.org/record/3986799)  
 
 To see the help run ```./mg_traits.sh --help```  
 
