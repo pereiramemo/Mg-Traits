@@ -1,0 +1,1 @@
+/home/bioinf/resources/dbcan2/V11/dbCAN-HMMdb-V11.txt
