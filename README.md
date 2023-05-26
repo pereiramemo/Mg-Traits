@@ -23,8 +23,7 @@
 [dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)  
 [Silva SSU nr99 (DADA2 format)](https://zenodo.org/record/3986799)  
 
-To see the help run ```./mg_traits.sh --help```  
-
+**Usage**:
 ```
 Usage: ./mg_traits.sh <options>
 --help                          print this help
