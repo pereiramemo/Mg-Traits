@@ -14,7 +14,7 @@
 [AGS and ACN tools](https://github.com/pereiramemo/AGS-and-ACN-tools)  
 [HMMER](http://hmmer.org)  
 [R](https://www.r-project.org)  
-[tidyverse](https://www.tidyverse.org) R package  
+[tidyverse](https://www.tidyverse.org)  
 [DADA2](https://benjjneb.github.io/dada2/)  
 
 **and databases**:  
