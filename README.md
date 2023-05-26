@@ -4,7 +4,7 @@
 29 (and counting) functional traits at the metagenome level (i.e., functional aggregated traits), ranging from GC variance and amino acid composition to functional diversity and average genome size. It takes as an input a preprocessed (unassembled) metagenomic sample and outputs the computed metagenomic traits organized in different tables and grouped in separate folders according to the type of data source
 (see [Fig. 1](#figure1)). 
 
-    **Dependencies**:  
+**Dependencies**:  
 [BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide)  
 [PEAR](https://cme.h-its.org/exelixis/web/software/pear)  
 [FragGeneScan](https://omics.informatics.indiana.edu/FragGeneScan/)  
@@ -17,13 +17,12 @@
 [tidyverse](https://www.tidyverse.org) R package  
 
 
-    Similarly as mentioned above, once these tools are installed the configuration file [mg_traits_lite_conf.bash](https://github.com/pereiramemo/metagenomic_pipelines/blob/main/mg_traits/mg_traits_lite_conf.sh) has to be edited to set the correct paths to define the variables.
+Once these tools are installed, the configuration file [conf.bash](https://github.com/pereiramemo/metagenomic_pipelines/blob/main/mg_traits/mg_traits_lite_conf.sh) has to be edited to set the correct paths of the variables needed to run Mg-Traits.
 
-    To see the help run ```./mg_traits_lite.sh --help```  
-
+To see the help run ```./mg_traits.sh --help```  
 
 ```
-Usage: ./mg_traits_lite.sh <options>
+Usage: ./mg_traits.sh <options>
 --help                          print this help
 --clean t|f                     remove all intermediate files
 --confidence NUM                confidence value to run rdp bayes classifier (from 0 to 100; default 50)
@@ -44,7 +43,7 @@ Usage: ./mg_traits_lite.sh <options>
 <a name="figure1">
 </a>
 
-![Figure 1](./figures_and_tables/Mg_Traits_Lite-ENG.png)
+![Figure 1](./figures/Mg_Traits_Lite-ENG.png)
 
 __Figure 1. Mg-Traits pipeline. The 29 metagenomic traits computed by the Mg-Traits pipeline are divided into four different groups.__ 
 The first includes the metagenomic traits computed at the nucleotide level: (1) GC content, (2) GC variance, and (3) Tetranucleotide frequency. 
