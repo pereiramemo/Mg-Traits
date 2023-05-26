@@ -43,7 +43,7 @@ Usage: ./mg_traits.sh <options>
 <a name="figure1">
 </a>
 
-![Figure 1](./figures/Mg_Traits_Lite-ENG.png)
+![Figure 1](./figures/Mg_Traits-ENG.png)
 
 __Figure 1. Mg-Traits pipeline. The 29 metagenomic traits computed by the Mg-Traits pipeline are divided into four different groups.__ 
 The first includes the metagenomic traits computed at the nucleotide level: (1) GC content, (2) GC variance, and (3) Tetranucleotide frequency. 
