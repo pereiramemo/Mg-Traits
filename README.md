@@ -14,13 +14,14 @@
 [AGS and ACN tools](https://github.com/pereiramemo/AGS-and-ACN-tools)  
 [HMMER](http://hmmer.org)  
 [R](https://www.r-project.org)  
-[tidyverse](https://www.tidyverse.org) R package  
+[tidyverse](https://www.tidyverse.org) R package
+[DADA2](https://benjjneb.github.io/dada2/)
 
 **and databases**:  
 [Pfam (UProC DB)](http://uproc.gobics.de)  
 [Resfams](http://www.dantaslab.org/resfams)  
 [dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)  
-[Silva SSU nr99 (DADA2)](https://zenodo.org/record/3986799)  
+[Silva SSU nr99 (DADA2 format)](https://zenodo.org/record/3986799)  
 
 To see the help run ```./mg_traits.sh --help```  
 
