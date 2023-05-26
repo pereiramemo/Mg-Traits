@@ -14,8 +14,8 @@
 [AGS and ACN tools](https://github.com/pereiramemo/AGS-and-ACN-tools)  
 [HMMER](http://hmmer.org)  
 [R](https://www.r-project.org)  
-[tidyverse](https://www.tidyverse.org) R package
-[DADA2](https://benjjneb.github.io/dada2/)
+[tidyverse](https://www.tidyverse.org) R package  
+[DADA2](https://benjjneb.github.io/dada2/)  
 
 **and databases**:  
 [Pfam (UProC DB)](http://uproc.gobics.de)  
@@ -42,6 +42,8 @@ Usage: ./mg_traits.sh <options>
 --train_file_name CHAR          train file name to run FragGeneScan, see FragGeneScan help for options (default illumina_5)
 
 ```
+
+**Workflow description**:
 
 <a name="figure1">
 </a>
