@@ -1,10 +1,10 @@
 # Mg-Traits
 
-**mg_traits** a command line application programmed in BASH, AWK, and R, dedicated to the computation of
+**mg_traits** is a command line application programmed in BASH, AWK, and R, dedicated to the computation of
 29 (and counting) functional traits at the metagenome level (i.e., functional aggregated traits), ranging from GC variance and amino acid composition to functional diversity and average genome size. It takes as an input a preprocessed (unassembled) metagenomic sample and outputs the computed metagenomic traits organized in different tables and grouped in separate folders according to the type of data source
 (see [Fig. 1](#figure1)). 
 
-**Dependencies**:  
+**Mg-Traits utilizes the following tools**:  
 [BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide)  
 [PEAR](https://cme.h-its.org/exelixis/web/software/pear)  
 [FragGeneScan](https://omics.informatics.indiana.edu/FragGeneScan/)  
@@ -15,6 +15,13 @@
 [HMMER](http://hmmer.org)  
 [R](https://www.r-project.org)  
 [tidyverse](https://www.tidyverse.org) R package  
+
+**and databases**: 
+[Pfam (UProC DB)](http://uproc.gobics.de)
+[Resfams](http://www.dantaslab.org/resfams)
+[dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)
+[Silva SSU nr99 (DADA2)](https://zenodo.org/record/3986799)
+
 
 
 Once these tools are installed, the configuration file [conf.bash](https://github.com/pereiramemo/metagenomic_pipelines/blob/main/mg_traits/mg_traits_lite_conf.sh) has to be edited to set the correct paths of the variables needed to run Mg-Traits.
