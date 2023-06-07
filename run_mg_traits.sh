@@ -12,7 +12,7 @@ function realpath() {
 }
 
 # check input parameters
-if [[ "$#" -lt 3 ]]; then
+if [[ "$#" -lt 2 ]]; then
   echo -e "Missing parameters.\nSee run_mg_traits.sh . . --help"
   exit
 fi
@@ -37,6 +37,6 @@ docker run \
   --rm \
   --user $(id -u):$(id -g) \
    epereira/mg_traits:latest \
-  --input_fna "${CONTAINER_SRC_DIR}/${INPUT_FNA}" \
-  --outdir "${OUTPUT}" \
+  --input_file "${CONTAINER_SRC_DIR}/${INPUT_FNA}" \
+  --output_dir "${OUTPUT}" \
   $@

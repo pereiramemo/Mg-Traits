@@ -1,0 +1,24 @@
+# folders
+SOFTWARE_DIR="/bioinfo/software/"
+RESOURCES_DIR="${SOFTWARE_DIR}/ags_n_acn/resources/"
+
+# files
+SINGLE_COPY_COGS_DB="${RESOURCES_DIR}/uproc_scg_db/SINGLE_COPY_COGS_DB"
+MODEL="${RESOURCES_DIR}/uproc_scg_db/modeldir/model"
+COG_LENGTHS="${RESOURCES_DIR}/all_cog_lengths.tsv"
+FRAGGENESCAN_TRAIN_FILE_DIR="${RESOURCES_DIR}"
+
+# tools
+r_interpreter="/usr/bin/R"
+uproc_version="1.2.0"
+uproc_prot="${SOFTWARE_DIR}/uproc-${uproc_version}/uproc-prot"
+uproc_dna="${SOFTWARE_DIR}/uproc-${uproc_version}/uproc-dna"
+
+fraggenescan="${SOFTWARE_DIR}/FragGeneScanRs"
+
+bbduk_version="38.79"
+bbduk="${SOFTWARE_DIR}/bbmap/bbmap-${bbduk_version}/bbduk.sh"
+
+
+
+
