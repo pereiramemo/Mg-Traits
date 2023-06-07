@@ -5,41 +5,56 @@
 (see [Fig. 1](#figure1)). 
 
 **Mg-Traits utilizes the following tools**:  
-[BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide)  
-[PEAR](https://cme.h-its.org/exelixis/web/software/pear)  
-[FragGeneScanRs](https://github.com/unipept/FragGeneScanRs)  
-[UProC](http://uproc.gobics.de/)  
-[EMBOSS](http://emboss.sourceforge.net/)  
-[VSEARCH](https://github.com/torognes/vsearch)  
 [AGS and ACN tools](https://github.com/pereiramemo/AGS-and-ACN-tools)  
+[BBTools](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide) 
+[DADA2](https://benjjneb.github.io/dada2/)  
+[diamond](https://github.com/bbuchfink/diamond)  
+[EMBOSS](http://emboss.sourceforge.net/)  
+[FragGeneScanRs](https://github.com/unipept/FragGeneScanRs)  
 [HMMER](http://hmmer.org)  
 [R](https://www.r-project.org)  
+[seqtk](https://github.com/lh3/seqtk)  
+[SortMeRNA](https://github.com/sortmerna/sortmerna)  
 [tidyverse](https://www.tidyverse.org)  
-[DADA2](https://benjjneb.github.io/dada2/)  
+[UProC](http://uproc.gobics.de/)  
+[VSEARCH](https://github.com/torognes/vsearch)  
 
 **and databases**:  
-[Pfam (UProC DB)](http://uproc.gobics.de)  
-[Resfams](http://www.dantaslab.org/resfams)  
+[CANT-HYD](https://github.com/dgittins/CANT-HYD-HydrocarbonBiodegradation)  
 [dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)  
+[NCYc](https://github.com/qichao1984/NCyc)  
+[PCyc](https://github.com/ZengJiaxiong/Phosphorus-cycling-database)  
+[Pfam (UProC format)](http://uproc.gobics.de)  
+[PlasticDB](http://plasticdb.org/)  
+[Resfams](http://www.dantaslab.org/resfams)  
 [Silva SSU nr99 (DADA2 format)](https://zenodo.org/record/3986799)  
 
 **Usage**:
 ```
-Usage: ./mg_traits.sh <options>
+Usage: ./mg_traits.sh <input file> <output dir> <options>
 --help                          print this help
 --clean t|f                     remove all intermediate files
 --confidence NUM                confidence value to run rdp bayes classifier (from 0 to 100; default 50)
---evalue_acn NUM                evalue to filter reads for for AGS computaton (default 1e-15)
+--evalue_acn NUM                evalue to filter reads for ACN computation (default 1e-15)
 --evalue_div NUM                evalue to filter reads for diversity estimation (default 1e-15)
---input_file CHAR               input workable fasta file
+--evalue_res NUM                evalue to annotate ResFam with hmmsearch (default 1e-15)
+--evalue_caz NUM                evalue to annotate CAZyme with hmmsearch (default 1e-15)
+--evalue_hyd NUM                evalue to annotate Hyd with hmmsearch (default 1e-15)
+--evalue_ncy NUM                evalue to annotate NCycle with diamond (default 1e-15)
+--evalue_pcy NUM                evalue to annotate PCycle with diamond (default 1e-15)
+--evalue_pls NUM                evalue to annotate Plastic DB with diamond (default 1e-15)
 --nslots NUM                    number of threads used (default 12)
---max_length NUM                maximum read length used to trim reads (from the 3' end) for AGS computaton (default 180)
+--max_length NUM                maximum read length used to trim reads (from the 3' end) for AGS computation (default 180)
 --min_length NUM                minimum read length used to estimate taxonomic diversity (default 100)
---output_dir CHAR               directory to output generated data (i.e., preprocessed data, plots, tables)
 --overwrite t|f                 overwrite previous directory (default f)
---ref_db CHAR                   refernce database to run NBC (default silva_nr99_v138_train_set.fa.gz) 
+--ref_db CHAR                   reference database to run NBC (default silva_nr99_v138_train_set.fa.gz) 
 --sample_name CHAR              sample name (default metagenomex)
 --train_file_name CHAR          train file name to run FragGeneScan, see FragGeneScan help for options (default illumina_5)
+--verbose t|f                   reduced verbose (default t)
+--verbose_all t|f               complete verbose (default f)
+
+<input file>: Fasta file used to compute mg-traits.
+<output dir>: Output directory to store all computed ,g-traits.
 
 ```
 
