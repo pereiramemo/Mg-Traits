@@ -526,12 +526,12 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-# "${MG_TRAITS_DIR}/modules/module3_fun_mg_traits.sh" \
-# --input_file "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.faa" \
-# --output_dir "${OUTPUT_DIR}/fun" \
-# --sample_name "${SAMPLE_NAME}" \
-# --num_genes "${NUM_GENES}" \
-# --nslots "${NSLOTS}" |  2>&1 | handleoutput_all
+"${MG_TRAITS_DIR}/modules/module3_fun_mg_traits.sh" \
+--input_file "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.faa" \
+--output_dir "${OUTPUT_DIR}/fun" \
+--sample_name "${SAMPLE_NAME}" \
+--num_genes "${NUM_GENES}" \
+--nslots "${NSLOTS}" |  2>&1 | handleoutput_all
 
 if [[ $? -ne 0 ]]; then
   echo "module3_fun_mg_traits.sh failed"

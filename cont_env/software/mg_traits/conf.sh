@@ -22,7 +22,7 @@ RESFAM_HMM="${RESOURCES_DIR}/Resfams-full.hmm"
 CAZ_HMM="${RESOURCES_DIR}/dbCAN-fam-HMMs.txt.v11"
 HYD_HMM="${RESOURCES_DIR}/CANT-HYD.hmm"
 
-DB="${RESOURCES_DIR}/sortmerna_databases/"
+DB="${RESOURCES_DIR}/sortmerna/sortmerna_databases/"
 REF_DEFAULT="${DB}/smr_v4.3_default_db.fasta"
 REF_SENSITIVE="${DB}/smr_v4.3_sensitive_db.fasta"
 REF_SENSITIVE_RFAMSEEDS="${DB}/smr_v4.3_sensitive_db_rfam_seeds.fasta"

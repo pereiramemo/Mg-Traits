@@ -15,6 +15,7 @@ RUN mkdir -p /bioinfo/software/bin
 RUN mkdir /bioinfo/software/mg_traits
 RUN mkdir /bioinfo/software/mg_traits/toolbox/
 RUN mkdir -p /bioinfo/resources/
+RUN mkdir -p /bioinfo/resources/sortmerna
 RUN mkdir -p /output/
 RUN mkdir -p /input/
 
@@ -36,8 +37,9 @@ RUN apt-get install -y \
   libcurl4-gnutls-dev \
   libxml2-dev \
   libssl-dev \
-  bc \
-  gawk
+  bc
+  
+RUN apt-get install -y gawk
 
 ################################################################################
 # 3. R and R packages: tidyverse and dada2 (+ dependencies)
@@ -162,16 +164,16 @@ RUN mkdir /bioinfo/software/bin/sortmerna
 RUN bash sortmerna-4.3.6-Linux.sh --skip-license --prefix=/bioinfo/software/bin/sortmerna
 
 #  downlaod dbs
-RUN wget --directory-prefix=/bioinfo/resources/ \
+RUN wget --directory-prefix=/bioinfo/resources/sortmerna/ \
 https://github.com/biocore/sortmerna/releases/download/v4.3.4/database.tar.gz; \
-mkdir /bioinfo/resources/sortmerna_databases; \
-tar -xvf /bioinfo/resources/database.tar.gz -C /bioinfo/resources/sortmerna_databases
+mkdir /bioinfo/resources/sortmerna/sortmerna_databases; \
+tar -xvf /bioinfo/resources/sortmerna/database.tar.gz -C /bioinfo/resources/sortmerna/sortmerna_databases
 
 #  index dbs
 RUN /bioinfo/software/bin/sortmerna/bin/sortmerna \
--ref /bioinfo/resources/sortmerna_databases/smr_v4.3_default_db.fasta \
+-ref /bioinfo/resources/sortmerna/sortmerna_databases/smr_v4.3_default_db.fasta \
 --index 1 \
---workdir /bioinfo/resources/
+--workdir /bioinfo/resources/sortmerna/
 
 ################################################################################
 # 12. bbmap
@@ -193,10 +195,10 @@ RUN apt-get install -y diamond-aligner
 # --directory-prefix=/bioinfo/resources/ \
 # http://uproc.gobics.de/downloads/db/pfam28.uprocdb.gz
 
-COPY resources/pfam28.uprocdb.gz
+COPY resources/pfam28.uprocdb.gz /bioinfo/resources/
 
 RUN /bioinfo/software/bin/uproc-1.2.0/uproc-import \
-/bioinfo/resources/pfam28.uprocdb.gz
+/bioinfo/resources/pfam28.uprocdb.gz /bioinfo/resources/pfam28_db
 
 ################################################################################
 # 15. dbCAN3 
@@ -265,8 +267,10 @@ RUN diamond makedb \
 # 21. Plastic db
 ################################################################################
 
-RUN wget  --directory-prefix=/bioinfo/resources/ \
-https://plasticdb.org/static/PlasticDB.fasta
+# RUN wget  --directory-prefix=/bioinfo/resources/ \
+# https://plasticdb.org/static/PlasticDB.fasta
+
+COPY resources/PlasticDB.fasta /bioinfo/resources/
 
 RUN diamond makedb \
 --in /bioinfo/resources/PlasticDB.fasta \
@@ -331,7 +335,7 @@ COPY software/mg_traits/funs.sh /bioinfo/software/mg_traits/
 RUN chmod -R +x /bioinfo/software/
 RUN chmod -R 777 /output/
 RUN chmod -R 777 /input/
-RUN chmod -R 777 /bioinfo/resources/
+RUN chmod -R 777 /bioinfo/resources/sortmerna/
 
 ################################################################################
 ## 30. clean

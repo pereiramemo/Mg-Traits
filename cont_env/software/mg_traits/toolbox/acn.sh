@@ -408,7 +408,7 @@ SMRNA_OUT="${THIS_JOB_TMP_DIR}/${OUTPUT_PREFIX}"_smrna
     --fastx \
     --aligned "${SMRNA_OUT}" \
     -m "${SMRNA_MEM}" \
-    --workdir /bioinfo/resources/ \
+    --workdir /bioinfo/resources/sortmerna/ \
     -e 1e-1 \
     --no-best \
     --num_alignments 1 2>&1 | handleoutput
