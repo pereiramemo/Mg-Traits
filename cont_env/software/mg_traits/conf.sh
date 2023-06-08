@@ -11,8 +11,8 @@ RESOURCES_DIR="/bioinfo/resources"
 ###############################################################################
 
 PFAM_UPROC_DB="${RESOURCES_DIR}/pfam28_db"
-BGC_UPROC_DB="${RESOURCES_DIR}/bgc_uproc_db_all"
-SINGLE_COPY_COGS_DB="${RESOURCES_DIR}/uproc_scg_db/SINGLE_COPY_COGS_DB"
+BGC_UPROC_DB="${RESOURCES_DIR}/uproc_bgc_db"
+SINGLE_COPY_COGS_DB="${RESOURCES_DIR}/uproc_scg_db"
 UPROC_MODEL="${RESOURCES_DIR}/model"
 
 TRANSFACT_ACC="${RESOURCES_DIR}/TF.txt"
