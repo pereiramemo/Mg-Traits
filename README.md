@@ -66,12 +66,14 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 ![Figure 1](./figures/Mg_Traits-ENG.png)
 
 __Figure 1. Mg-Traits pipeline. The 29 metagenomic traits computed by the Mg-Traits pipeline are divided into four different groups.__ 
-The first includes the metagenomic traits computed at the nucleotide level: (1) GC content, (2) GC variance, and (3) Tetranucleotide frequency. 
-The second group includes the traits obtained from the open reading frame (ORF) sequence data: (4) ORFs to Base Pairs (BPs) ratio, (5) Codon frequency, (6) Amino acid frequency, and (7) Acidic to basic amino acid ratio. 
-The third group is based on the functional annotation of the ORF amino acid sequences. The first 16 metagenomic traits (from 8 to 23 in the figure) comprise the composition, diversity, richness, and percentage of annotated genes for
-four different sets of genes: [Pfam](https://pfam.xfam.org), [Resfam](http://www.dantaslab.org/resfams), [Biosynthetic Gene Cluster (BGC) domains](https://doi.org/10.1101/2021.01.20.427441), and [CAZymes](https://bcb.unl.edu/dbCAN2/). 
-Additionally, this group includes (24) the percentage of transcription factors (TFs) and (25) the average genome size (AGS). 
-Lastly, in the fourth group are included the taxonomy-related metagenomic traits: (26) average copy number of 16S rRNA genes (ACN), taxonomic (27) composition, (28) diversity, and (29) richness.  
+The first includes the metagenomic traits computed at the nucleotide level: GC content, GC variance, and  Tetranucleotide frequency.
+The second group includes the traits obtained from the open reading frame (ORF) sequence data: ORFs to Base Pairs (BPs) ratio, Codon frequency, Amino acid frequency, and Acidic to basic amino acid ratio.
+The third group is based on the functional annotation of the ORF amino acid sequences. For this, we use [Pfam](https://www.ebi.ac.uk/interpro/) and another six specialized databases: [Biosynthetic Gene Cluster (BGC) domains](https://github.com/pereiramemo/BiG-MEx), [Resfams](http://www.dantaslab.org/resfams), [CANT-HYD](https://github.com/dgittins/CANT-HYD-HydrocarbonBiodegradation),
+[NCyc](https://github.com/qichao1984/NCyc), [PCyc](https://github.com/ZengJiaxiong/Phosphorus-cycling-database), and (PlastidDB)(https://plasticdb.org/). For each reference database, we compute the Composition, Diversity, Richness, and Percentage of Annotated Genes. 
+Additionally, this group includes the percentage of transcription factors (TFs) and the average genome size [AGS](https://github.com/pereiramemo/AGS-and-ACN-tools).
+Lastly, in the fourth group are included the taxonomy-related metagenomic traits: average copy number of 16S rRNA genes [ACN](https://github.com/pereiramemo/AGS-and-ACN-tools), taxonomic composition, diversity, and richness.  
+
+
 
 
 
