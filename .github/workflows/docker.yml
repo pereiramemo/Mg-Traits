@@ -12,7 +12,7 @@ jobs:
   steps:
   - uses: actions/checkout@v2
   
-  - name: Build the Diffdock Image
+  - name: Build the mg_traits Image
       run: |
         docker build -t ghcr.io/epereira/mg_traits:latest -f cont_env/Dockerfile .
         docker run ghcr.io/epereira/mg_traits:latest . . --help
