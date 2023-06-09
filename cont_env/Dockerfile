@@ -191,11 +191,11 @@ RUN apt-get install -y diamond-aligner
 # 14. Pfam UProC DB 
 ################################################################################
 
-# RUN wget \
-# --directory-prefix=/bioinfo/resources/ \
-# http://uproc.gobics.de/downloads/db/pfam28.uprocdb.gz
+RUN wget \
+--directory-prefix=/bioinfo/resources/ \
+http://uproc.gobics.de/downloads/db/pfam28.uprocdb.gz
 
-COPY resources/pfam28.uprocdb.gz /bioinfo/resources/
+# COPY resources/pfam28.uprocdb.gz /bioinfo/resources/
 
 RUN /bioinfo/software/bin/uproc-1.2.0/uproc-import \
 /bioinfo/resources/pfam28.uprocdb.gz /bioinfo/resources/pfam28_db
@@ -220,7 +220,11 @@ RUN gunzip /bioinfo/resources/Resfams-full.hmm.gz
 # 17. BGC domains 
 ################################################################################
 
-COPY resources/bgc_uproc_db_all /bioinfo/resources/bgc_uproc_db_all
+RUN wget -O /bioinfo/resources/uproc_bgc_db.tar.gz \
+https://figshare.com/ndownloader/files/41140853
+
+# COPY resources/uproc_bgc_db.tar.gz /bioinfo/resources/
+RUN tar czfv /bioinfo/resources/uproc_bgc_db.tar.gz -C /bioinfo/resources/
 
 ################################################################################
 # 18. HYD HMMs
@@ -267,10 +271,12 @@ RUN diamond makedb \
 # 21. Plastic db
 ################################################################################
 
-# RUN wget  --directory-prefix=/bioinfo/resources/ \
-# https://plasticdb.org/static/PlasticDB.fasta
+RUN wget  --directory-prefix=/bioinfo/resources/ \
+https://raw.githubusercontent.com/pereiramemo/Mg-Traits/main/cont_env/resources/PlasticDB.fasta.gz
 
-COPY resources/PlasticDB.fasta /bioinfo/resources/
+# COPY resources/PlasticDB.fasta /bioinfo/resources/
+
+RUN gunzip /bioinfo/resources/PlasticDB.fasta.gz
 
 RUN diamond makedb \
 --in /bioinfo/resources/PlasticDB.fasta \
@@ -280,7 +286,10 @@ RUN diamond makedb \
 # 22. TF.txt factor 
 ################################################################################
 
-COPY resources/TF.txt /bioinfo/resources/
+RUN wget --directory-prefix=/bioinfo/resources/ \
+https://raw.githubusercontent.com/pereiramemo/Mg-Traits/main/cont_env/resources/TF.txt
+
+# COPY resources/TF.txt /bioinfo/resources/
 
 ################################################################################
 # 23. Silva train nr99 
@@ -296,14 +305,25 @@ RUN mv "/bioinfo/resources/silva_nr99_v138_train_set.fa.gz?download=1" \
 # 24. SCG uproc db and cog lengths file
 ################################################################################
 
-COPY resources/uproc_scg_db /bioinfo/resources/uproc_scg_db
-COPY resources/all_cog_lengths.tsv /bioinfo/resources/all_cog_lengths.tsv
+RUN wget -O /bioinfo/resources/uproc_scg_db.tar.gz \
+https://figshare.com/ndownloader/files/41142581
+
+# COPY resources/uproc_scg_db.tar.gz /bioinfo/resources/
+RUN tar xzfv /bioinfo/resources/uproc_scg_db.tar.gz -C /bioinfo/resources/
+
+RUN wget --directory-prefix=/bioinfo/resources/ \
+https://raw.githubusercontent.com/pereiramemo/Mg-Traits/main/cont_env/resources/all_cog_lengths.tsv
+
+# COPY resources/all_cog_lengths.tsv /bioinfo/resources/all_cog_lengths.tsv
 
 ################################################################################
 # 25. Pfam acc list 
 ################################################################################
 
-COPY resources/Pfam_v28.0_acc.txt /bioinfo/resources/
+RUN wget --directory-prefix=/bioinfo/resources/ \
+https://raw.githubusercontent.com/pereiramemo/Mg-Traits/main/cont_env/resources/Pfam_v28.0_acc.txt
+
+#COPY resources/Pfam_v28.0_acc.txt /bioinfo/resources/
 
 ################################################################################
 # 26. taxa annot scripts 
