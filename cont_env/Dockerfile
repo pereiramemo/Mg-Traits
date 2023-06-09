@@ -224,7 +224,7 @@ RUN wget -O /bioinfo/resources/uproc_bgc_db.tar.gz \
 https://figshare.com/ndownloader/files/41140853
 
 # COPY resources/uproc_bgc_db.tar.gz /bioinfo/resources/
-RUN tar czfv /bioinfo/resources/uproc_bgc_db.tar.gz -C /bioinfo/resources/
+RUN tar xzfv /bioinfo/resources/uproc_bgc_db.tar.gz -C /bioinfo/resources/
 
 ################################################################################
 # 18. HYD HMMs
