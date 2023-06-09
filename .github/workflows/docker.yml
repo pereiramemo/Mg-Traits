@@ -15,9 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-     run: |
-       docker build -t ghcr.io/epereira/mg_traits:latest -f cont_env/Dockerfile .
-       docker run ghcr.io/epereira/mg_traits:latest . . --help
-       docker push ghcr.io/epereira/mg_traits:latest
+    run: |
+      docker build -t ghcr.io/epereira/mg_traits:latest -f cont_env/Dockerfile .
+      docker run ghcr.io/epereira/mg_traits:latest . . --help
+      docker push ghcr.io/epereira/mg_traits:latest
       
       
