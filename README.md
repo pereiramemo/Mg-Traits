@@ -20,6 +20,7 @@
 [VSEARCH](https://github.com/torognes/vsearch)  
 
 **and databases**:  
+[BGC domains](https://github.com/pereiramemo/BiG-MEx)  
 [CANT-HYD](https://github.com/dgittins/CANT-HYD-HydrocarbonBiodegradation)  
 [dbCAN and dbCAN-sub](https://bcb.unl.edu/dbCAN2)  
 [NCYc](https://github.com/qichao1984/NCyc)  
