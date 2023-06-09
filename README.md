@@ -30,6 +30,7 @@
 [Resfams](http://www.dantaslab.org/resfams)  
 [Silva SSU nr99 (DADA2 format)](https://zenodo.org/record/3986799)  
 
+
 **Usage**:
 ```
 Usage: ./mg_traits.sh <input file> <output dir> <options>
