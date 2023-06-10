@@ -1,7 +1,7 @@
 # Mg-Traits
 
 **mg_traits** is a command line application programmed in BASH, AWK, and R, dedicated to the computation of
-29 (and counting) functional traits at the metagenome level (i.e., functional aggregated traits), ranging from GC variance and amino acid composition to functional diversity and average genome size. It takes as an input a preprocessed (unassembled) metagenomic sample and outputs the computed metagenomic traits organized in different tables and grouped in separate folders according to the type of data source
+functional traits at the metagenome level (i.e., functional aggregated traits), ranging from GC variance and amino acid composition to functional diversity and average genome size. It takes as an input a preprocessed (unassembled) metagenomic sample and outputs the computed metagenomic traits organized in different tables and grouped in separate folders according to the type of data source
 (see [Fig. 1](#figure1)). 
 
 **Mg-Traits utilizes the following tools**:  
