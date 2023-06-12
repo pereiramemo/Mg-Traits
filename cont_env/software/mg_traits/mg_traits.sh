@@ -478,7 +478,55 @@ if [[ "${OVERWRITE}" == "f" ]]; then
 fi      
 
 ###############################################################################
-### 7. Module 1: Compute simple mg_traits
+### 8. Check for compressed data
+###############################################################################
+
+UNCOMPRESSED="f"
+TEST_FILE_BZIP2=$(file "${INPUT_FILE}" | egrep "bzip2")
+TEST_FILE_GZIP=$(file "${INPUT_FILE}" | egrep "gzip")
+
+if [[ -n "${TEST_FILE_BZIP2}" ]]; then
+
+  echo "uncompressing ..." | handleoutput
+  INPUT_FILE_UNCOMPRESSED="${OUTPUT_DIR}/${SAMPLE_NAME}.fasta"
+
+  "${bzip2}" \
+  --decompress \
+  --keep \
+  --stdout "${INPUT_FILE}" > "${INPUT_FILE_UNCOMPRESSED}"
+  
+  if [[ $? -ne 0 ]]; then
+    echo "bzip2 ${INPUT_FILE} failed"
+    exit 1
+  fi 
+  
+  INPUT_FILE="${INPUT_FILE_UNCOMPRESSED}"
+  UNCOMPRESSED="t"
+  
+fi
+
+if [[ -n "${TEST_FILE_GZIP}" ]]; then
+
+  echo "uncompressing ..." | handleoutput
+  INPUT_FILE_UNCOMPRESSED="${OUTPUT_DIR}/${SAMPLE_NAME}.fasta"
+
+  "${unpigz}" \
+  --processes "${NSLOTS}" \
+  --keep \
+  --stdout "${INPUT_FILE}" > "${INPUT_FILE_UNCOMPRESSED}"
+  
+  if [[ $? -ne 0 ]]; then
+    echo "gunzip ${INPUT_FILE} failed"
+    exit 1
+  fi 
+  
+  INPUT_FILE="${INPUT_FILE_UNCOMPRESSED}"
+  UNCOMPRESSED="t"
+  
+fi
+
+###############################################################################
+### 9. Module 1: Compute simple mg_traits
 ###############################################################################
 
 echo -e "# Computing nucleotide traits (module 1)\n ..." | handleoutput
@@ -494,7 +542,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 8. Module 2: compute ORF mg_traits
+### 10. Module 2: compute ORF mg_traits
 ###############################################################################
 
 echo -e \
@@ -513,7 +561,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 9. Module 3: annotate functional genes mg_traits
+### 11. Module 3: annotate functional genes mg_traits
 ###############################################################################
 
 echo -e \
@@ -539,7 +587,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 ###############################################################################
-### 10. Compute AGS
+### 12. Compute AGS
 ###############################################################################
 
 echo -e "# Computing AGS (ags.sh tool)\n ..." | handleoutput
@@ -568,7 +616,7 @@ if [[ $? -ne "0" ]]; then
 fi  
 
 ###############################################################################
-# 11. Compute ACN
+# 13. Compute ACN
 ###############################################################################
 
 echo -e "# Computing ACN (acn.sh tool)\n ..." | handleoutput
@@ -598,7 +646,7 @@ if [[ $? -ne "0" ]]; then
 fi  
 
 ###############################################################################
-# 12. Format AGS output
+# 14. Format AGS output
 ###############################################################################
 
 awk -v s="${SAMPLE_NAME}" -v OFS="\t" '{
@@ -624,7 +672,7 @@ if [[ $? -ne "0" ]]; then
 fi  
 
 ###############################################################################
-# 13. Format ACN output
+# 15. Format ACN output
 ###############################################################################
 
 awk -v s="${SAMPLE_NAME}" -v OFS="\t" '{
@@ -648,7 +696,7 @@ if [[ $? -ne "0" ]]; then
 fi  
 
 ###############################################################################
-### 14. Module 4: compute taxonomic diversity
+# 16. Module 4: compute taxonomic diversity
 ###############################################################################
 
 echo -e "# Computing taxa traits (module 4)\n ..." | handleoutput
@@ -670,7 +718,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 15. Module 5: Resfam annotation
+# 17. Module 5: Resfam annotation
 ###############################################################################
 
 echo -e "# Computing resfam traits (module 5)\n ..." | handleoutput
@@ -689,7 +737,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 16. Module 6: bgc domains annotation
+# 18. Module 6: bgc domains annotation
 ###############################################################################
 
 echo -e "# Computing BGC traits (module 6)\n ..." | handleoutput
@@ -707,7 +755,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 17. Module 7: CAZymes annotation
+# 19. Module 7: CAZymes annotation
 ###############################################################################
 
 echo -e "# Computing CAZymes traits (module 7)\n ..." | handleoutput
@@ -726,7 +774,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 18. Module 8: Hyd annotation
+# 20. Module 8: Hyd annotation
 ###############################################################################
 
 echo -e "# Computing CANT-HYD traits (module 8)\n ..." | handleoutput
@@ -745,7 +793,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 18. Module 9: Ncyc annotation
+# 21. Module 9: Ncyc annotation
 ###############################################################################
 
 echo -e "# Computing NCyc traits (module 9)\n ..." | handleoutput
@@ -764,7 +812,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 19. Module 10: Ncyc annotation
+# 22. Module 10: Ncyc annotation
 ###############################################################################
 
 echo -e "# Computing PCyc traits (module 10)\n ..." | handleoutput
@@ -783,7 +831,7 @@ if [[ $? -ne 0 ]]; then
 fi  
 
 ###############################################################################
-### 20. Module 10: Ncyc annotation
+# 23. Module 10: Ncyc annotation
 ###############################################################################
 
 echo -e "# Computing plastic genes traits (module 11)\n ..." | handleoutput
@@ -801,9 +849,8 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi  
 
-
 ###############################################################################
-### 21. Compress large files
+# 24. Compress large files
 ###############################################################################
 
 echo -e "# Compressing data\n ..." | handleoutput
@@ -830,7 +877,21 @@ if [[ $? -ne 0 ]]; then
 fi 
 
 ###############################################################################
-### 22. Exit status
+# 25. Cleam uncompress files (if present)
+###############################################################################
+
+if [[ "${UNCOMPRESS}" == "t" ]]; then
+  rm "${INPUT_FILE_UNCOMPRESSED}"
+  
+  if [[ $? -ne "0" ]]; then
+    echo "rm  ${INPUT_FILE_UNCOMPRESSED}" 
+  fi
+fi  
+  
+
+
+###############################################################################
+# 25. Exit status
 ###############################################################################
 
 echo -e "# Mg-traits exited with 0 errors" | handleoutput

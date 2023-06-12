@@ -20,6 +20,8 @@ COG_LENGTHS="${RESOURCES_DIR}/all_cog_lengths.tsv"
 
 RESFAM_HMM="${RESOURCES_DIR}/Resfams-full.hmm"
 CAZ_HMM="${RESOURCES_DIR}/dbCAN-fam-HMMs.txt.v11"
+CAZSUB_HMM="${RESOURCES_DIR}/dbCAN_sub.hmm"
+
 HYD_HMM="${RESOURCES_DIR}/CANT-HYD.hmm"
 
 DB="${RESOURCES_DIR}/sortmerna/sortmerna_databases/"
@@ -84,3 +86,5 @@ diamond="/usr/bin/diamond"
 bzip2="/bin/bzip2"
 gunzip="/bin/gunzip"
 pigz="/usr/bin/pigz"
+unpigz="/usr/bin/unpigz"
+

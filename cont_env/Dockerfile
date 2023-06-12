@@ -201,11 +201,14 @@ RUN /bioinfo/software/bin/uproc-1.2.0/uproc-import \
 /bioinfo/resources/pfam28.uprocdb.gz /bioinfo/resources/pfam28_db
 
 ################################################################################
-# 15. dbCAN3 
+# 15. dbCAN3 and dbCAN3 sub
 ################################################################################
 
 RUN wget --directory-prefix=/bioinfo/resources/ \
 https://bcb.unl.edu/dbCAN2/download/Databases/dbCAN-old@UGA/dbCAN-fam-HMMs.txt.v11
+
+RUN wget --directory-prefix=/bioinfo/resources/ \
+https://bcb.unl.edu/dbCAN2/download/Databases/dbCAN_sub.hmm
 
 ################################################################################
 # 16. Resfam 
@@ -370,5 +373,7 @@ RUN rm sortmerna-4.3.6-Linux.sh
 ################################################################################
 ## 31. entry point
 ################################################################################
+
+RUN apt-get install -y file
 
 ENTRYPOINT ["/bioinfo/software/mg_traits/mg_traits.sh"]
