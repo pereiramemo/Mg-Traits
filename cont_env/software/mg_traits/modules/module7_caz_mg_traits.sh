@@ -135,23 +135,23 @@ if [[ $? -ne 0 ]]; then
 fi
 
 ###############################################################################
-# 5. Annotate cazymes
+# 5. Annotate cazymes: family level
 ###############################################################################
 
 "${hmmsearch}" \
---domtblout ${OUTPUT_DIR}/"${SAMPLE_NAME}.domtblout" \
+--domtblout ${OUTPUT_DIR}/"${SAMPLE_NAME}_caz_fam.domtblout" \
 --noali \
 -E 1 \
 --cpu "${NSLOTS}" \
-"${CAZ_HMM}" "${INPUT_FILE}" > ${OUTPUT_DIR}/"${SAMPLE_NAME}.hout"
+"${CAZ_HMM}" "${INPUT_FILE}" > ${OUTPUT_DIR}/"${SAMPLE_NAME}_caz_fam.hout"
 
 if [[ $? -ne "0" ]]; then
-  echo "${hmmsearch} failed"
+  echo "${hmmsearch} (family level) failed"
   exit 1
 fi  
 
 ###############################################################################
-# 6. Format cazyme annotation
+# 6. Format cazyme annotation: family level
 ###############################################################################
 
 awk -v s="${SAMPLE_NAME}" -v  e="${EVALUE}" -v OFS="\t" '{ 
@@ -165,18 +165,18 @@ awk -v s="${SAMPLE_NAME}" -v  e="${EVALUE}" -v OFS="\t" '{
   for (i in array_annot) { 
     print s,i,array_annot[i]
   }
-}' "${OUTPUT_DIR}/${SAMPLE_NAME}.domtblout" > \
-   "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_annot.tsv"
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_fam.domtblout" > \
+   "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_fam_annot.tsv"
 
 if [[ $? -ne "0" ]]; then
-  echo "awk format cazyme annotation failed"
+  echo "awk format cazyme (family level) annotation failed"
   exit 1
 fi  
    
 # note: the independent evalue is used to select significant domains   
    
 ###############################################################################
-# 7. Compute cazyme diversity
+# 7. Compute cazyme diversity: family level
 ###############################################################################
 
 awk -v s="${SAMPLE_NAME}" -v OFS="\t" -v FS="\t" '{ 
@@ -192,16 +192,16 @@ awk -v s="${SAMPLE_NAME}" -v OFS="\t" -v FS="\t" '{
   }
   print s,"shannon",shannon
   print s,"richness",richness
-}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_annot.tsv" > \
-"${OUTPUT_DIR}/${SAMPLE_NAME}_caz_stats.tsv"
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_fam_annot.tsv" > \
+"${OUTPUT_DIR}/${SAMPLE_NAME}_caz_fam_stats.tsv"
 
 if [[ $? -ne "0" ]]; then
-  echo "awk compute cazyme diversity failed"
+  echo "awk compute cazyme (family level) diversity failed"
   exit 1
 fi  
 
 ###############################################################################
-# 8. Compute percentage of annotated reads
+# 8. Compute percentage of annotated reads: family level
 ###############################################################################
 
 awk -v s="${SAMPLE_NAME}" -v FS="\t" -v OFS="\t" -v n="${NUM_GENES}" '{
@@ -213,10 +213,98 @@ awk -v s="${SAMPLE_NAME}" -v FS="\t" -v OFS="\t" -v n="${NUM_GENES}" '{
   perc_annot = 100*total/n
   print s,"perc_annot", perc_annot
   
-}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_annot.tsv" >> \
-   "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_stats.tsv"
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_fam_annot.tsv" >> \
+   "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_fam_stats.tsv"
             
 if [[ $? -ne "0" ]]; then
-  echo "awk compute percentage of annotated reads failed"
+  echo "awk compute percentage of annotated reads (family level) failed"
   exit 1
 fi  
+
+###############################################################################
+# 5. Annotate cazymes: subfamily level
+###############################################################################
+
+"${hmmsearch}" \
+--domtblout ${OUTPUT_DIR}/"${SAMPLE_NAME}_caz_sub.domtblout" \
+--noali \
+-E 1 \
+--cpu "${NSLOTS}" \
+"${CAZSUB_HMM}" "${INPUT_FILE}" > ${OUTPUT_DIR}/"${SAMPLE_NAME}_caz_sub.hout"
+
+if [[ $? -ne "0" ]]; then
+  echo "${hmmsearch} (subfamily level) failed"
+  exit 1
+fi  
+
+###############################################################################
+# 6. Format cazyme annotation: subfamily level
+###############################################################################
+
+awk -v s="${SAMPLE_NAME}" -v  e="${EVALUE}" -v OFS="\t" '{ 
+
+  if ($0 !~ /^#/ && $13 <= e) {
+    query=gensub(".hmm","","g",$4)
+    array_annot[query]++
+  }
+    
+} END {
+  for (i in array_annot) { 
+    print s,i,array_annot[i]
+  }
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_sub.domtblout" > \
+   "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_sub_annot.tsv"
+
+if [[ $? -ne "0" ]]; then
+  echo "awk format cazyme (subfamily level) annotation failed"
+  exit 1
+fi  
+   
+# note: the independent evalue is used to select significant domains   
+   
+###############################################################################
+# 7. Compute cazyme diversity: subfamily level
+###############################################################################
+
+awk -v s="${SAMPLE_NAME}" -v OFS="\t" -v FS="\t" '{ 
+
+  total_abund = total_abund + $3
+  array_abund[$2] = $3
+  richness++
+  
+} END {
+  for (i in array_abund) {
+    p_i = array_abund[i]/total_abund
+    shannon = -((p_i)*log(p_i)) + shannon
+  }
+  print s,"shannon",shannon
+  print s,"richness",richness
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_sub_annot.tsv" > \
+"${OUTPUT_DIR}/${SAMPLE_NAME}_caz_sub_stats.tsv"
+
+if [[ $? -ne "0" ]]; then
+  echo "awk compute cazyme (subfamily level) diversity failed"
+  exit 1
+fi  
+
+###############################################################################
+# 8. Compute percentage of annotated reads: subfamily level
+###############################################################################
+
+awk -v s="${SAMPLE_NAME}" -v FS="\t" -v OFS="\t" -v n="${NUM_GENES}" '{
+
+  total = $3 +total 
+  
+} END {
+
+  perc_annot = 100*total/n
+  print s,"perc_annot", perc_annot
+  
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_sub_annot.tsv" >> \
+   "${OUTPUT_DIR}/${SAMPLE_NAME}_caz_sub_stats.tsv"
+            
+if [[ $? -ne "0" ]]; then
+  echo "awk compute percentage of annotated reads (subfamily level) failed"
+  exit 1
+fi  
+

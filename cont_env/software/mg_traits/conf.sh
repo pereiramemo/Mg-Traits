@@ -26,6 +26,9 @@ HYD_HMM="${RESOURCES_DIR}/CANT-HYD.hmm"
 
 DB="${RESOURCES_DIR}/sortmerna/sortmerna_databases/"
 REF_DEFAULT="${DB}/smr_v4.3_default_db.fasta"
+REF_ARC="${DB}/silva-arc-16s-id95.fasta"
+REF_BAC="${DB}/silva-bac-16s-id90.fasta"
+
 REF_SENSITIVE="${DB}/smr_v4.3_sensitive_db.fasta"
 REF_SENSITIVE_RFAMSEEDS="${DB}/smr_v4.3_sensitive_db_rfam_seeds.fasta"
 REF_FAST="${DB}/smr_v4.3_fast_db.fasta"
