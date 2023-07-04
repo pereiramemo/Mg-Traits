@@ -116,7 +116,6 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 │   ├── sample.hout
 │   ├── sample_res_annot.tsv
 │   └── sample_res_stats.tsv
-├── sample.fasta
 └── tax
     ├── sample_centroids.fasta
     ├── sample_div.tsv
