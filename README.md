@@ -56,19 +56,19 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 ```
 <output dir>
 .
-├── acn
-│   ├── sample_acn.tsv
-│   ├── sample_smrna.blast  
-│   ├── sample_smrna.fa  
-│   └── sample_smrna.log  
-├── ags  
-│   ├── sample_ags.tsv  
-│   ├── sample_single_cogs_count.tsv  
-│   └── sample_uout.csv
-├── bgc  
-│   ├── sample_bgc_annot.tsv
-│   ├── sample_bgc_stats.tsv
-│   └── sample.uout
+├── acn # average 16S rRNA gene copy number (ACN) trait
+│   ├── sample_acn.tsv # ACN
+│   ├── sample_smrna.blast # sortmerna blast formatted output
+│   ├── sample_smrna.fa # 16S rRNA genes identified
+│   └── sample_smrna.log # sortmerna log
+├── ags # average genome size (AGS) trait
+│   ├── sample_ags.tsv # AGS, number of genomes, and number of bp
+│   ├── sample_single_cogs_count.tsv # single copy gene counts table
+│   └── sample_uout.csv # uproc output
+├── bgc  # biosynthetic gene clusters (BGC) traits
+│   ├── sample_bgc_annot.tsv #  BGC domains counts table
+│   ├── sample_bgc_stats.tsv # BGC stats: shannon diversity, richness and percentage of annotated ORFs with a BGC domain
+│   └── sample.uout # uproc output
 ├── caz
 │   ├── sample_caz_fam_annot.tsv
 │   ├── sample_caz_fam.domtblout
