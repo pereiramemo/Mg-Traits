@@ -20,8 +20,7 @@ chmod +x run_mg_traits.sh
 ```
 
 Congratulations, you can now use `Mg-Traits`.
-
-```
+Note: the first time you run this command it will download the docker image, and this can take a few minutes.
 
 ## `Usage`
 ```
