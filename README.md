@@ -55,9 +55,8 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 
 The computed traits are organized in 13 different folders and 54 files, as shown below.
 For each folder, we added a comment specifying the traits that are included.
-All files including the computed traits have the format (tab separated):  
-```<sample name>  <trait>  <value>```  
-This allows a straightforward concatenation of the traits computed for different samples.  
+All files including the computed traits have the format (tab separated): ```<sample name>  <trait>  <value>```  
+This allows a straightforward concatenation of the traits computed in different samples.  
 
 ```
 .
@@ -136,13 +135,13 @@ The *_stats.tsv files have the shannon diversity, richness and percentage of ann
 The *_annot.tsv files are the genes counts table.  
 The \*.domtblout, \*.hout and the hmmsearch outputs, and the \*.uout and \*.blout are uproc and diamond outputs.  
   
-Regarding the nucleotide composition analysis (i.e., nuc):  
+Regarding the nucleotide composition (i.e., nuc):  
 \*.compseq is the compseq (EMBOSS) output.  
 \*.nuc_comp is the tetranucleotide tab formatted output.  
 \*.info is the infoseq (EMBOSS) output.  
 \*.gc_stats.tsv are the GC stats mean and variance.  
   
-Regarding the Open Reading Frames annotation and analysis (i.e., orf):  
+Regarding the Open Reading Frames annotation (i.e., orf):  
 *_aa_comp.tsv is the amino acid composition.  
 *_codon_comp.tsv is the codon composition.  
 *.cusp is the cusp (EMBOSS) output.  
