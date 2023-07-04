@@ -55,7 +55,7 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 
 The computed traits are organized in 13 different folders and 54 files, as shown below.
 For each folder, we added a comment specifying the traits that are included.
-All files including the computed traits have the format (tab separated): ```<sample name>  <trait>  <value>```  
+All files including computed traits have the format (tab separated): ```<sample name>  <trait>  <value>```  
 This allows a straightforward concatenation of the traits computed in different samples.  
 
 ```
