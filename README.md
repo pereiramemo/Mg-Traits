@@ -52,7 +52,7 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 ```
 
 ## Output
-
+```
 <output dir>
 .
 ├── acn # average 16S rRNA gene copy number trait
@@ -124,7 +124,7 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
     └── sample.uclust
 
 13 directories, 54 files
-
+```
 
 ## Description
 
