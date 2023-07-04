@@ -133,7 +133,7 @@ The acn and ags outputs are explained [here](https://github.com/pereiramemo/AGS-
 Regarding the functional annotation (i.e., bgc, caz, fun, hyd, ncy, pcy, and res):   
 The *_stats.tsv files have the shannon diversity, richness and percentage of annotated ORFs.  
 The *_annot.tsv files are the genes counts table.  
-The \*.domtblout, \*.hout and the hmmsearch outputs, and the \*.uout and \*.blout are uproc and diamond outputs.  
+The \*.domtblout, \*.hout and the hmmsearch outputs, and the \*.uout and \*.blout are uproc and diamond outputs, resp.  
   
 Regarding the nucleotide composition (i.e., nuc):  
 \*.compseq is the compseq (EMBOSS) output.  
@@ -150,10 +150,10 @@ Regarding the Open Reading Frames annotation (i.e., orf):
   
 Regarding the Taxonomic annotation (i.e., tax):  
 *_centroids.fasta is a fasta file with the cluster centroid sequences.  
-*_div.tsv file with diversity and richness estimates.  
-*_sample2otu2abund2taxa.tsv taxonomic annotation output.  
+*_div.tsv are diversity and richness estimates.  
+*_sample2otu2abund2taxa.tsv is the taxonomic annotation output.  
 *_subseq.fasta 16s rRNA genes extracted from reads.  
-*.uclust uclust output.  
+*.uclust is the uclust output.  
 
 ## Description
 
