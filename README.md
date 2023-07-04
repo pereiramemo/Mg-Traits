@@ -1,11 +1,11 @@
-# `Mg-Traits : Metagenomic Functional Trait Analysis`
+# Mg-Traits : Metagenomic Functional Trait Analysis
 
 `Mg-Traits` is a command line application programmed in BASH, AWK, and R, dedicated to the computation of
 functional traits at the metagenome level (i.e., functional aggregated traits), ranging from GC variance and amino acid composition to functional diversity and average genome size. It takes as an input a preprocessed (unassembled) metagenomic sample and outputs the computed metagenomic traits organized in different tables and grouped in separate folders according to the type of data source. (see [Fig. 1](#figure1)). 
 
 `Mg-Traits` allows the systematic computation of a comprehensive set of metagenomic functional traits, which can be used to generate a functional and taxonomic fingerprint and reveal the predominant life-history strategies and ecological processes in a microbial community. `Mg-Traits` contributes to improving the exploitation of metagenomic data and facilitates comparative and quantitative studies. Considering the high genomic plasticity of microorganisms and their capacity to rapidly adapt to changing environmental conditions, Mg-Traits constitutes a valuable tool to monitor environmental systems.
 
-## `Getting Started`
+## Getting Started
 
 `Mg-Traits` is simple to run! You can get started using it in one command for linux. Please note that the first time you run this script it will download a docker image and this may take some time. 
 
@@ -22,7 +22,7 @@ chmod +x run_mg_traits.sh
 Congratulations, you can now use `Mg-Traits`.
 Note: the first time you run this command it will download the docker image, and this can take a few minutes.
 
-## `Usage`
+## Usage
 ```
 Usage: ./mg_traits.sh <input file> <output dir> <options>
 --help                          print this help
@@ -51,7 +51,82 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 
 ```
 
-## `Description`
+## Output
+
+<output dir>
+.
+├── acn # average 16S rRNA gene copy number trait
+│   ├── sample_acn.tsv # average 16S rRNA gene copy number
+│   ├── sample_smrna.blast # [SortMeRNA](https://github.com/sortmerna/sortmerna) blast formatted output
+│   ├── sample_smrna.fa # identified 16S rRNA sequences
+│   └── sample_smrna.log # [SortMeRNA](https://github.com/sortmerna/sortmerna) output log
+├── ags # average genome size trait
+│   ├── sample_ags.tsv # average genome size, number of genomes and number of bp
+│   ├── sample_single_cogs_count.tsv # single copy gene counts table
+│   └── sample_uout.csv # [UProC](http://uproc.gobics.de/) output
+├── bgc
+│   ├── sample_bgc_annot.tsv
+│   ├── sample_bgc_stats.tsv
+│   └── sample.uout
+├── caz
+│   ├── sample_caz_fam_annot.tsv
+│   ├── sample_caz_fam.domtblout
+│   ├── sample_caz_fam.hout
+│   ├── sample_caz_fam_stats.tsv
+│   ├── sample_caz_sub_annot.tsv
+│   ├── sample_caz_sub.domtblout
+│   ├── sample_caz_sub.hout
+│   └── sample_caz_sub_stats.tsv
+├── fun
+│   ├── sample_fun_annot.tsv
+│   ├── sample_fun_stats.tsv
+│   └── sample.uout
+├── hyd
+│   ├── sample.domtblout
+│   ├── sample.hout
+│   ├── sample_hyd_annot.tsv
+│   └── sample_hyd_stats.tsv
+├── ncy
+│   ├── sample.blout
+│   ├── sample_ncy_annot.tsv
+│   └── sample_ncy_stats.tsv
+├── nuc
+│   ├── sample.compseq
+│   ├── sample_gc_stats.tsv
+│   ├── sample.info.gz
+│   └── sample_nuc_comp
+├── orf
+│   ├── sample_aa_comp.tsv
+│   ├── sample_codon_comp.tsv
+│   ├── sample.cusp
+│   ├── sample.faa.gz
+│   ├── sample.ffn.gz
+│   └── sample_orf_stats.tsv
+├── pcy
+│   ├── sample.blout
+│   ├── sample_pcy_annot.tsv
+│   └── sample_pcy_stats.tsv
+├── pls
+│   ├── sample.blout
+│   ├── sample_pls_annot.tsv
+│   └── sample_pls_stats.tsv
+├── res
+│   ├── sample.domtblout
+│   ├── sample.hout
+│   ├── sample_res_annot.tsv
+│   └── sample_res_stats.tsv
+├── sample.fasta
+└── tax
+    ├── sample_centroids.fasta
+    ├── sample_div.tsv
+    ├── sample_sample2otu2abund2taxa.tsv
+    ├── sample_subseq.fasta
+    └── sample.uclust
+
+13 directories, 54 files
+
+
+## Description
 
 <a name="figure1">
 </a>
@@ -63,7 +138,7 @@ The first includes the metagenomic traits computed at the nucleotide level: GC c
 [NCyc](https://github.com/qichao1984/NCyc), [PCyc](https://github.com/ZengJiaxiong/Phosphorus-cycling-database), [PlastidDB](https://plasticdb.org/), and [CAZymes](https://bcb.unl.edu/dbCAN/). For each reference database, we compute the Composition, Diversity, Richness, and Percentage of Annotated Genes. Additionally, this group includes the percentage of transcription factors (TFs) and the average genome size [AGS](https://github.com/pereiramemo/AGS-and-ACN-tools). Lastly, in the fourth group are included the taxonomy-related metagenomic traits: average copy number of 16S rRNA genes [ACN](https://github.com/pereiramemo/AGS-and-ACN-tools), Taxonomic Composition, Diversity, and Richness.  
 
 
-## `Dependancies`
+## Dependancies
 **Mg-Traits utilizes the following tools**:  
 [AGS and ACN tools](https://github.com/pereiramemo/AGS-and-ACN-tools)  
 [BBTools](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide) 
@@ -90,12 +165,12 @@ The first includes the metagenomic traits computed at the nucleotide level: GC c
 [Resfams](http://www.dantaslab.org/resfams)  
 [Silva SSU nr99 (DADA2 format)](https://zenodo.org/record/3986799)  
 
-## `Please Cite`
+## Please Cite
 ```
 Pereira-Flores E, Barberan A, Glöckner FO, Fernandez-Guerra A (2021) Mg-Traits pipeline: advancing functional trait-based approaches in metagenomics. ARPHA Conference Abstracts 4: e64908. https://doi.org/10.3897/aca.4.e64908
 ```
 
-## `Contact`
+## Contact
 Please reach out with any comments, concerns, or discussion regarding `Mg-Traits`. It is primarly maintained by Emliano Perea for NewAtlantis Labs.
 
 > [![Discord](https://img.shields.io/badge/Discord-NewAtlantis-7289da)](https://discord.gg/newatlantis)
