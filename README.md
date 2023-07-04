@@ -53,6 +53,12 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 
 ## Output
 
+The computed traits are organized in 13 different folders and 54 files, as shown below.
+For each folder, we added a comment specifying the traits that are included.
+All files including the computed traits have the format (tab separated):  
+<sample name>  <trait>  <value>
+This allows a straightforward concatenation of the traits computed for different samples.  
+
 ```
 .
 ├── acn # Average 16S rRNA gene copy number (ACN)
@@ -95,7 +101,7 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 │   ├── sample_gc_stats.tsv
 │   ├── sample.info.gz
 │   └── sample_nuc_comp
-├── orf # Open Reading Frames annotation and composition
+├── orf # Open Reading Frames annotation and composition (FragGeneScanRs)
 │   ├── sample_aa_comp.tsv
 │   ├── sample_codon_comp.tsv
 │   ├── sample.cusp
@@ -122,6 +128,33 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
     ├── sample_subseq.fasta
     └── sample.uclust
 ```
+
+The acn and ags outputs are explained [here](https://github.com/pereiramemo/AGS-and-ACN-tools)  
+
+Regarding the functional annotation (i.e., bgc, caz, fun, hyd, ncy, pcy, and res):   
+The *_stats.tsv files have the shannon diversity, richness and percentage of annotated ORFs.  
+The *_annot.tsv files are the genes counts table.  
+The \*.domtblout, \*.hout and the hmmsearch outputs, and the \*.uout and \*.blout are uproc and diamond outputs.  
+  
+Regarding the nucleotide composition analysis (i.e., nuc):  
+\*.compseq is the compseq (EMBOSS) output.  
+\*.nuc_comp is the tetranucleotide tab formatted output.  
+\*.info is the infoseq (EMBOSS) output.  
+\*.gc_stats.tsv are the GC stats mean and variance.  
+  
+Regarding the Open Reading Frames annotation and analysis (i.e., orf):  
+*_aa_comp.tsv is the amino acid composition.  
+*_codon_comp.tsv is the codon composition.  
+*.cusp is the cusp (EMBOSS) output.  
+*.faa.gz is the fasta file of ORF amino acid sequences.  
+*.ffn.gz is the fasta file of ORF nucleotide sequences.  
+  
+Regarding the Taxonomic annotation (i.e., tax):  
+*_centroids.fasta is a fasta file with the cluster centroid sequences.  
+*_div.tsv file with diversity and richness estimates.  
+*_sample2otu2abund2taxa.tsv taxonomic annotation output.  
+*_subseq.fasta 16s rRNA genes extracted from reads.  
+*.uclust uclust output.  
 
 ## Description
 
