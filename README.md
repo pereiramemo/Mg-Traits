@@ -53,17 +53,18 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 
 ## Output
 
+```
 <output dir>
 .
-├── acn # average 16S rRNA gene copy number trait  
-│   ├── sample_acn.tsv # average 16S rRNA gene copy number  
-│   ├── sample_smrna.blast # [SortMeRNA](https://github.com/sortmerna/sortmerna) blast formatted output  
-│   ├── sample_smrna.fa # identified 16S rRNA sequences  
-│   └── sample_smrna.log # [SortMeRNA](https://github.com/sortmerna/sortmerna) output log  
-├── ags # average genome size trait  
-│   ├── sample_ags.tsv # average genome size, number of genomes and number of bp  
-│   ├── sample_single_cogs_count.tsv # single copy gene counts table  
-│   └── sample_uout.csv # [UProC](http://uproc.gobics.de/) output  
+├── acn
+│   ├── sample_acn.tsv
+│   ├── sample_smrna.blast  
+│   ├── sample_smrna.fa  
+│   └── sample_smrna.log  
+├── ags  
+│   ├── sample_ags.tsv  
+│   ├── sample_single_cogs_count.tsv  
+│   └── sample_uout.csv
 ├── bgc  
 │   ├── sample_bgc_annot.tsv
 │   ├── sample_bgc_stats.tsv
@@ -124,7 +125,7 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
     └── sample.uclust
 
 13 directories, 54 files
-
+```
 
 ## Description
 
