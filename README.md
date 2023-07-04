@@ -54,22 +54,21 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 ## Output
 
 ```
-<output dir>
 .
-├── acn                                       # average 16S rRNA gene copy number (ACN) trait
-│   ├── sample_acn.tsv                        # ACN
-│   ├── sample_smrna.blast                    # sortmerna blast formatted output
-│   ├── sample_smrna.fa                       # 16S rRNA genes identified
-│   └── sample_smrna.log                      # sortmerna log
-├── ags                                       # average genome size (AGS) trait
-│   ├── sample_ags.tsv                        # AGS, number of genomes, and number of bp
-│   ├── sample_single_cogs_count.tsv          # single copy gene counts table
-│   └── sample_uout.csv                       # uproc output
-├── bgc                                       # biosynthetic gene clusters (BGC) traits
-│   ├── sample_bgc_annot.tsv                  # BGC domains counts table
-│   ├── sample_bgc_stats.tsv                  # BGC stats: shannon diversity, richness and percentage of annotated ORFs with a BGC domain
-│   └── sample.uout                           # uproc output
-├── caz
+├── acn # Average 16S rRNA gene copy number (ACN)
+│   ├── sample_acn.tsv
+│   ├── sample_smrna.blast
+│   ├── sample_smrna.fa
+│   └── sample_smrna.log
+├── ags # Average genome size (AGS)
+│   ├── sample_ags.tsv
+│   ├── sample_single_cogs_count.tsv
+│   └── sample_uout.csv
+├── bgc # Biosynthetic Gene Cluster domains annotation (uproc)
+│   ├── sample_bgc_annot.tsv
+│   ├── sample_bgc_stats.tsv
+│   └── sample.uout
+├── caz # Carbohydrate active enzymes (CAZymes) annotation (hmmsearch)
 │   ├── sample_caz_fam_annot.tsv
 │   ├── sample_caz_fam.domtblout
 │   ├── sample_caz_fam.hout
@@ -78,52 +77,50 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 │   ├── sample_caz_sub.domtblout
 │   ├── sample_caz_sub.hout
 │   └── sample_caz_sub_stats.tsv
-├── fun
+├── fun # Pfam functional annotation (uproc)
 │   ├── sample_fun_annot.tsv
 │   ├── sample_fun_stats.tsv
 │   └── sample.uout
-├── hyd
+├── hyd # Hydrocarbon degradation genes annotation (hmmsearch)
 │   ├── sample.domtblout
 │   ├── sample.hout
 │   ├── sample_hyd_annot.tsv
 │   └── sample_hyd_stats.tsv
-├── ncy
+├── ncy # Nitrogen cycling genes annotation (diamond)
 │   ├── sample.blout
 │   ├── sample_ncy_annot.tsv
 │   └── sample_ncy_stats.tsv
-├── nuc
+├── nuc # Nucleotide composition 
 │   ├── sample.compseq
 │   ├── sample_gc_stats.tsv
 │   ├── sample.info.gz
 │   └── sample_nuc_comp
-├── orf
+├── orf # Open Reading Frames annotation and composition
 │   ├── sample_aa_comp.tsv
 │   ├── sample_codon_comp.tsv
 │   ├── sample.cusp
 │   ├── sample.faa.gz
 │   ├── sample.ffn.gz
 │   └── sample_orf_stats.tsv
-├── pcy
+├── pcy # Phosphorus cycling genes annotation (diamond)
 │   ├── sample.blout
 │   ├── sample_pcy_annot.tsv
 │   └── sample_pcy_stats.tsv
-├── pls
+├── pls # plastic degradation enzymes annotaion (diamond)
 │   ├── sample.blout
 │   ├── sample_pls_annot.tsv
 │   └── sample_pls_stats.tsv
-├── res
+├── res # Antibiotic resistance genes annotation (hmmsearch)
 │   ├── sample.domtblout
 │   ├── sample.hout
 │   ├── sample_res_annot.tsv
 │   └── sample_res_stats.tsv
-└── tax
+└── tax # Taxonomic annotation (naive bayes classifier)
     ├── sample_centroids.fasta
     ├── sample_div.tsv
     ├── sample_sample2otu2abund2taxa.tsv
     ├── sample_subseq.fasta
     └── sample.uclust
-
-13 directories, 54 files
 ```
 
 ## Description
@@ -173,7 +170,7 @@ Pereira-Flores E, Barberan A, Glöckner FO, Fernandez-Guerra A (2021) Mg-Traits 
 ## Contact
 Please reach out with any comments, concerns, or discussion regarding `Mg-Traits`. It is primarly maintained by Emliano Perea for NewAtlantis Labs.
 
-> [![Discord](https://img.shields.io/badge/Discord-NewAtlantis-7289da)](https://discord.gg/newatlantis)
+[![Discord](https://img.shields.io/badge/Discord-NewAtlantis-7289da)](https://discord.gg/newatlantis)
 [![Twitter](https://img.shields.io/badge/Twitter-%40NewAtlantisDAO-00acee)](https://twitter.com/NewAtlantisDAO)
 [![Email](https://img.shields.io/badge/Email-epereira%40newatlantis.io-%23ffce00)](epereira@newatlantis.io)
 [![ORCiD](https://img.shields.io/badge/ORCiD-Emeliano_Pereira--Flores-aecc52)](https://orcid.org/0000-0001-5830-3328)
