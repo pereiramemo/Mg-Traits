@@ -111,7 +111,7 @@ This allows a straightforward concatenation of the traits computed in different 
 │   ├── sample.blout
 │   ├── sample_pcy_annot.tsv
 │   └── sample_pcy_stats.tsv
-├── pls # plastic degradation enzymes annotaion (diamond)
+├── pls # Plastic degradation enzymes annotaion (diamond)
 │   ├── sample.blout
 │   ├── sample_pls_annot.tsv
 │   └── sample_pls_stats.tsv
