@@ -123,9 +123,8 @@ make install;
 ################################################################################
 
 RUN wget --directory-prefix=/bioinfo/software/bin \
-https://github.com/unipept/FragGeneScanRs/releases/download/v1.1.0/FragGeneScanRs-v1.1.0-x86_64-unknown-linux-musl.tar.gz
-
-RUN cd /bioinfo/software/bin; \
+https://github.com/unipept/FragGeneScanRs/releases/download/v1.1.0/FragGeneScanRs-v1.1.0-x86_64-unknown-linux-musl.tar.gz; \
+cd /bioinfo/software/bin; \
 tar xzfv FragGeneScanRs-v1.1.0-x86_64-unknown-linux-musl.tar.gz; \
 rm FragGeneScanRs-v1.1.0-x86_64-unknown-linux-musl.tar.gz
 
@@ -140,24 +139,19 @@ https://raw.githubusercontent.com/unipept/FragGeneScanRs/main/train/illumina_5
 
 #  install
 RUN wget \
-https://github.com/biocore/sortmerna/releases/download/v4.3.6/sortmerna-4.3.6-Linux.sh
+https://github.com/biocore/sortmerna/releases/download/v4.3.6/sortmerna-4.3.6-Linux.sh; \
+mkdir /bioinfo/software/bin/sortmerna; \
+bash sortmerna-4.3.6-Linux.sh --skip-license --prefix=/bioinfo/software/bin/sortmerna
 
-RUN mkdir /bioinfo/software/bin/sortmerna
-
-RUN bash sortmerna-4.3.6-Linux.sh --skip-license --prefix=/bioinfo/software/bin/sortmerna
-
-#  downlaod dbs: default
-RUN wget --directory-prefix=/bioinfo/resources/sortmerna/ \
+#  downlaod dbs: default, arc and bac
+RUN mkdir /bioinfo/resources/sortmerna/sortmerna_databases; \
+wget --directory-prefix=/bioinfo/resources/sortmerna/sortmerna_databases \
 https://github.com/biocore/sortmerna/releases/download/v4.3.4/database.tar.gz; \
-mkdir /bioinfo/resources/sortmerna/sortmerna_databases; \
-tar -xvf /bioinfo/resources/sortmerna/database.tar.gz -C /bioinfo/resources/sortmerna/sortmerna_databases
-
-#  downlaod dbs: arc
-RUN wget --directory-prefix=/bioinfo/resources/sortmerna/sortmerna_databases/ \
-https://raw.githubusercontent.com/sortmerna/sortmerna/master/data/rRNA_databases/silva-arc-16s-id95.fasta
-
-#  downlaod dbs: bac
-RUN wget --directory-prefix=/bioinfo/resources/sortmerna/sortmerna_databases/ \
+tar -xvf /bioinfo/resources/sortmerna/sortmerna_databases/database.tar.gz \
+-C /bioinfo/resources/sortmerna/sortmerna_databases; \
+wget --directory-prefix=/bioinfo/resources/sortmerna/sortmerna_databases/ \
+https://raw.githubusercontent.com/sortmerna/sortmerna/master/data/rRNA_databases/silva-arc-16s-id95.fasta; \
+wget --directory-prefix=/bioinfo/resources/sortmerna/sortmerna_databases/ \
 https://raw.githubusercontent.com/sortmerna/sortmerna/master/data/rRNA_databases/silva-bac-16s-id90.fasta
 
 #  index dbs: default
@@ -166,14 +160,12 @@ RUN /bioinfo/software/bin/sortmerna/bin/sortmerna \
 --index 1 \
 --workdir /bioinfo/resources/sortmerna/
 
-#  index dbs: arc
+#  index dbs: arc and bac
 RUN /bioinfo/software/bin/sortmerna/bin/sortmerna \
 -ref /bioinfo/resources/sortmerna/sortmerna_databases/silva-arc-16s-id95.fasta \
 --index 1 \
---workdir /bioinfo/resources/sortmerna/
-
-#  index dbs: bac
-RUN /bioinfo/software/bin/sortmerna/bin/sortmerna \
+--workdir /bioinfo/resources/sortmerna/; \
+/bioinfo/software/bin/sortmerna/bin/sortmerna \
 -ref /bioinfo/resources/sortmerna/sortmerna_databases/silva-bac-16s-id90.fasta \
 --index 1 \
 --workdir /bioinfo/resources/sortmerna/
@@ -195,12 +187,11 @@ gawk
 
 RUN wget \
 --directory-prefix=/bioinfo/resources/ \
-http://uproc.gobics.de/downloads/db/pfam28.uprocdb.gz
+http://uproc.gobics.de/downloads/db/pfam28.uprocdb.gz; \
+/bioinfo/software/bin/uproc-1.2.0/uproc-import \
+/bioinfo/resources/pfam28.uprocdb.gz /bioinfo/resources/pfam28_db
 
 # COPY resources/pfam28.uprocdb.gz /bioinfo/resources/
-
-RUN /bioinfo/software/bin/uproc-1.2.0/uproc-import \
-/bioinfo/resources/pfam28.uprocdb.gz /bioinfo/resources/pfam28_db
 
 ################################################################################
 # 12. dbCAN3 and dbCAN3 sub
@@ -240,9 +231,8 @@ https://raw.githubusercontent.com/dgittins/CANT-HYD-HydrocarbonBiodegradation/ma
 
 RUN wget --directory-prefix=/bioinfo/resources/ \
 https://raw.githubusercontent.com/qichao1984/NCyc/master/data/NCyc_100.faa.gz; \
-gunzip /bioinfo/resources/NCyc_100.faa.gz
-
-RUN wget --directory-prefix=/bioinfo/resources/ \
+gunzip /bioinfo/resources/NCyc_100.faa.gz; \
+wget --directory-prefix=/bioinfo/resources/ \
 https://raw.githubusercontent.com/qichao1984/NCyc/master/data/id2gene.map; \
 mv /bioinfo/resources/id2gene.map /bioinfo/resources/ncyc_id2genemap.txt; \
 diamond makedb \
@@ -256,9 +246,8 @@ diamond makedb \
 RUN wget  --directory-prefix=/bioinfo/resources/ \
 https://github.com/ZengJiaxiong/Phosphorus-cycling-database/releases/download/untagged-5a0f44fdf33412c5d1d3/PCycDBv1.1.faa; \
 wget  --directory-prefix=/bioinfo/resources/ \
-https://github.com/ZengJiaxiong/Phosphorus-cycling-database/releases/download/untagged-5a0f44fdf33412c5d1d3/id2genemap.txt
-
-RUN mv /bioinfo/resources/id2genemap.txt /bioinfo/resources/pcyc_id2genemap.txt; \
+https://github.com/ZengJiaxiong/Phosphorus-cycling-database/releases/download/untagged-5a0f44fdf33412c5d1d3/id2genemap.txt; \
+mv /bioinfo/resources/id2genemap.txt /bioinfo/resources/pcyc_id2genemap.txt; \
 diamond makedb \
 --in /bioinfo/resources/PCycDBv1.1.faa \
 --db /bioinfo/resources/PCyc
@@ -297,14 +286,12 @@ mv "/bioinfo/resources/silva_nr99_v138_train_set.fa.gz?download=1" \
 ################################################################################
 
 RUN wget -O /bioinfo/resources/uproc_scg_db.tar.gz \
-https://figshare.com/ndownloader/files/41142581
-
-# COPY resources/uproc_scg_db.tar.gz /bioinfo/resources/
-RUN tar xzfv /bioinfo/resources/uproc_scg_db.tar.gz -C /bioinfo/resources/
-
-RUN wget --directory-prefix=/bioinfo/resources/ \
+https://figshare.com/ndownloader/files/41142581; \
+tar xzfv /bioinfo/resources/uproc_scg_db.tar.gz -C /bioinfo/resources/; \
+wget --directory-prefix=/bioinfo/resources/ \
 https://raw.githubusercontent.com/pereiramemo/Mg-Traits/main/cont_env/resources/all_cog_lengths.tsv
 
+# COPY resources/uproc_scg_db.tar.gz /bioinfo/resources/
 # COPY resources/all_cog_lengths.tsv /bioinfo/resources/all_cog_lengths.tsv
 
 ################################################################################
@@ -320,24 +307,27 @@ https://raw.githubusercontent.com/pereiramemo/Mg-Traits/main/cont_env/resources/
 # 23. taxa annot scripts 
 ################################################################################
 
-COPY software/mg_traits/toolbox/taxa_annot_rRDP.R /bioinfo/software/mg_traits/toolbox/
-COPY software/mg_traits/toolbox/taxa_annot_DADA2.R /bioinfo/software/mg_traits/toolbox/
+COPY software/mg_traits/toolbox/taxa_annot_rRDP.R  \
+software/mg_traits/toolbox/taxa_annot_DADA2.R \
+/bioinfo/software/mg_traits/toolbox/
 
 ################################################################################
 # 24. AGS and ACN tools
 ################################################################################
 
-COPY software/mg_traits/toolbox/ags.sh /bioinfo/software/mg_traits/toolbox/
-COPY software/mg_traits/toolbox/acn.sh /bioinfo/software/mg_traits/toolbox/
+COPY software/mg_traits/toolbox/ags.sh \
+software/mg_traits/toolbox/acn.sh \
+/bioinfo/software/mg_traits/toolbox/
 
 ################################################################################
 # 25. code: modules + mg_traits.sh
 ################################################################################
 
 COPY software/mg_traits/modules /bioinfo/software/mg_traits/modules
-COPY software/mg_traits/mg_traits.sh /bioinfo/software/mg_traits/
-COPY software/mg_traits/conf.sh /bioinfo/software/mg_traits/
-COPY software/mg_traits/funs.sh /bioinfo/software/mg_traits/
+COPY software/mg_traits/mg_traits.sh \
+software/mg_traits/conf.sh \
+software/mg_traits/funs.sh \
+/bioinfo/software/mg_traits/
 
 ################################################################################
 # 26. Set permissions

@@ -396,13 +396,10 @@ echo "Identifying 16S rRNA genes ..."  2>&1 | handleoutput
 
 SMRNA_OUT="${THIS_JOB_TMP_DIR}/${OUTPUT_PREFIX}"_smrna
 
-    # -ref "${REF_SENSITIVE}" \
-    # -ref "${REF_SENSITIVE_RFAMSEEDS}" \
-    # -ref "${REF_FAST}" \
-
   "${sortmerna}" \
-    -reads "${INPUT_FNA}" \
-    -ref "${REF_DEFAULT}" \
+   -reads "${INPUT_FNA}" \
+    -ref "${REF_ARC}" \
+    -ref "${REF_BAC}" \
     --threads "${NSLOTS}" \
     --blast 1 \
     --fastx \
@@ -410,7 +407,6 @@ SMRNA_OUT="${THIS_JOB_TMP_DIR}/${OUTPUT_PREFIX}"_smrna
     -m "${SMRNA_MEM}" \
     --workdir /bioinfo/resources/sortmerna/ \
     -e 1e-1 \
-    --no-best \
     --num_alignments 1 2>&1 | handleoutput
 
   if [[ $? != 0 ]]; then
