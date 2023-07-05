@@ -52,11 +52,10 @@ Usage: ./mg_traits.sh <input file> <output dir> <options>
 ```
 
 ## Output
-
-The computed traits are organized in 13 different folders and 54 files, as shown below.
+The computed traits are organized in 13 different folders, as shown below.
 For each folder, we added a comment specifying the traits that are included.
-All files including computed traits have the format (tab separated): ```<sample name>  <trait>  <value>```  
-This allows a straightforward concatenation of the traits computed in different samples.  
+All files with computed traits have the format (tab separated): ```<sample name>  <trait>  <value>```  
+This allows a straightforward concatenation of any specific trait computed in different samples.  
 
 ```
 .
@@ -69,11 +68,11 @@ This allows a straightforward concatenation of the traits computed in different 
 │   ├── sample_ags.tsv
 │   ├── sample_single_cogs_count.tsv
 │   └── sample_uout.csv
-├── bgc # Biosynthetic Gene Cluster domains annotation (uproc)
+├── bgc # Biosynthetic Gene Cluster domains (uproc)
 │   ├── sample_bgc_annot.tsv
 │   ├── sample_bgc_stats.tsv
 │   └── sample.uout
-├── caz # Carbohydrate active enzymes (CAZymes) annotation (hmmsearch)
+├── caz # Carbohydrate active enzymes (CAZymes families and subfamilies) (hmmsearch)
 │   ├── sample_caz_fam_annot.tsv
 │   ├── sample_caz_fam.domtblout
 │   ├── sample_caz_fam.hout
@@ -82,16 +81,16 @@ This allows a straightforward concatenation of the traits computed in different 
 │   ├── sample_caz_sub.domtblout
 │   ├── sample_caz_sub.hout
 │   └── sample_caz_sub_stats.tsv
-├── fun # Pfam functional annotation (uproc)
+├── fun # Pfam (uproc)
 │   ├── sample_fun_annot.tsv
 │   ├── sample_fun_stats.tsv
 │   └── sample.uout
-├── hyd # Hydrocarbon degradation genes annotation (hmmsearch)
+├── hyd # Hydrocarbon degradation enzymes (hmmsearch)
 │   ├── sample.domtblout
 │   ├── sample.hout
 │   ├── sample_hyd_annot.tsv
 │   └── sample_hyd_stats.tsv
-├── ncy # Nitrogen cycling genes annotation (diamond)
+├── ncy # Nitrogen cycling genes (diamond)
 │   ├── sample.blout
 │   ├── sample_ncy_annot.tsv
 │   └── sample_ncy_stats.tsv
@@ -100,27 +99,27 @@ This allows a straightforward concatenation of the traits computed in different 
 │   ├── sample_gc_stats.tsv
 │   ├── sample.info.gz
 │   └── sample_nuc_comp
-├── orf # Open Reading Frames annotation and composition (FragGeneScanRs)
+├── orf # Open Reading Frames (FragGeneScanRs)
 │   ├── sample_aa_comp.tsv
 │   ├── sample_codon_comp.tsv
 │   ├── sample.cusp
 │   ├── sample.faa.gz
 │   ├── sample.ffn.gz
 │   └── sample_orf_stats.tsv
-├── pcy # Phosphorus cycling genes annotation (diamond)
+├── pcy # Phosphorus cycling genes (diamond)
 │   ├── sample.blout
 │   ├── sample_pcy_annot.tsv
 │   └── sample_pcy_stats.tsv
-├── pls # Plastic degradation enzymes annotaion (diamond)
+├── pls # Plastic degradation enzymes (diamond)
 │   ├── sample.blout
 │   ├── sample_pls_annot.tsv
 │   └── sample_pls_stats.tsv
-├── res # Antibiotic resistance genes annotation (hmmsearch)
+├── res # Antibiotic resistance genes (hmmsearch)
 │   ├── sample.domtblout
 │   ├── sample.hout
 │   ├── sample_res_annot.tsv
 │   └── sample_res_stats.tsv
-└── tax # Taxonomic annotation (naive bayes classifier)
+└── tax # Taxonomy (naive bayes classifier)
     ├── sample_centroids.fasta
     ├── sample_div.tsv
     ├── sample_sample2otu2abund2taxa.tsv
@@ -128,28 +127,28 @@ This allows a straightforward concatenation of the traits computed in different 
     └── sample.uclust
 ```
 
-The acn and ags outputs are explained [here](https://github.com/pereiramemo/AGS-and-ACN-tools)  
+The acn and ags outputs are explained [here](https://github.com/pereiramemo/AGS-and-ACN-tools).
 
-Regarding the functional annotation (i.e., bgc, caz, fun, hyd, ncy, pcy, and res):   
-The *_stats.tsv files have the shannon diversity, richness and percentage of annotated ORFs.  
-The *_annot.tsv files are the genes counts table.  
+Functional composition (i.e., bgc, caz, fun, hyd, ncy, pcy, and res):   
+The *_stats.tsv files have the shannon diversity, richness and percentage of ORFs annotated.  
+The *_annot.tsv files are the gene counts tables.  
 The \*.domtblout, \*.hout and the hmmsearch outputs, and the \*.uout and \*.blout are uproc and diamond outputs, resp.  
-  
-Regarding the nucleotide composition (i.e., nuc):  
+ 
+Nucleotide composition (i.e., nuc):  
 \*.compseq is the compseq (EMBOSS) output.  
 \*.nuc_comp is the tetranucleotide tab formatted output.  
 \*.info is the infoseq (EMBOSS) output.  
-\*.gc_stats.tsv are the GC stats mean and variance.  
-  
-Regarding the Open Reading Frames annotation (i.e., orf):  
+\*.gc_stats.tsv are the GC mean and variance.  
+ 
+Open Reading Frames annotation (i.e., orf):  
 *_aa_comp.tsv is the amino acid composition.  
 *_codon_comp.tsv is the codon composition.  
 *.cusp is the cusp (EMBOSS) output.  
-*.faa.gz is the fasta file of ORF amino acid sequences.  
-*.ffn.gz is the fasta file of ORF nucleotide sequences.  
-  
-Regarding the Taxonomic annotation (i.e., tax):  
-*_centroids.fasta is a fasta file with the cluster centroid sequences.  
+*.faa.gz  are the ORF amino acid sequences.  
+*.ffn.gz are the ORF nucleotide sequences.  
+ 
+Taxonomic annotation (i.e., tax):  
+*_centroids.fasta are the cluster centroid sequences.  
 *_div.tsv are diversity and richness estimates.  
 *_sample2otu2abund2taxa.tsv is the taxonomic annotation output.  
 *_subseq.fasta 16s rRNA genes extracted from reads.  
