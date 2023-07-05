@@ -9,7 +9,7 @@ functional traits at the metagenome level (i.e., functional aggregated traits), 
 
 `Mg-Traits` is simple to run! You can get started using it in one command for linux. Please note that the first time you run this script it will download a docker image and this may take some time. 
 
-Ensure you have Docker runtime active at time of running this command
+Ensure you have Docker runtime active at time of running this command.
 
 ```
 wget https://github.com/new-atlantis-labs/Mg-Traits/blob/main/run_mg_traits.sh
