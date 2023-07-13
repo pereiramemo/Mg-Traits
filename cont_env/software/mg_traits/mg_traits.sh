@@ -15,12 +15,14 @@ show_usage(){
   cat <<EOF
 Usage: ./mg_traits.sh <input file> <output dir> <options>
 --help                          print this help
---clean t|f                     remove all intermediate files
+--caz_subfam_annot t|f          annotate CAZyme subfamilies (default f)
+--clean t|f                     remove intermediate files (i.e., *.info, *.ffn, *.faa, *.hout, *.uout) (default f)
 --confidence NUM                confidence value to run rdp bayes classifier (from 0 to 100; default 50)
 --evalue_acn NUM                evalue to filter reads for ACN computation (default 1e-15)
 --evalue_div NUM                evalue to filter reads for diversity estimation (default 1e-15)
 --evalue_res NUM                evalue to annotate ResFam with hmmsearch (default 1e-15)
---evalue_caz NUM                evalue to annotate CAZyme with hmmsearch (default 1e-15)
+--evalue_caz_fam NUM            evalue to annotate CAZyme families with hmmsearch (default 1e-15)
+--evalue_caz_subfam NUM         evalue to annotate CAZyme subfamilies with hmmsearch (default 1e-15)
 --evalue_hyd NUM                evalue to annotate Hyd with hmmsearch (default 1e-15)
 --evalue_ncy NUM                evalue to annotate NCycle with diamond (default 1e-15)
 --evalue_pcy NUM                evalue to annotate PCycle with diamond (default 1e-15)
@@ -50,6 +52,19 @@ while :; do
     show_usage
     exit 1;
     ;;
+#############
+  --caz_subfam_annot)
+  if [[ -n "${2}" ]]; then
+    CAZ_SUBFAM_ANNOT="${2}"
+    shift
+  fi
+  ;;
+  --caz_subfam_annot=?*)
+  CAZ_SUBFAM_ANNOT="${1#*=}" # Delete everything up to "=" and assign the remainder.
+  ;;
+  --caz_subfam_annot=) # Handle the empty case
+  printf 'Using default environment.\n' >&2
+  ;;
 #############
   --clean)
   if [[ -n "${2}" ]]; then
@@ -116,16 +131,29 @@ while :; do
   printf 'Using default environment.\n' >&2
   ;;
 #############
-  --evalue_caz)
+  --evalue_caz_fam)
   if [[ -n "${2}" ]]; then
-    EVALUE_CAZ="${2}"
+    EVALUE_CAZ_FAM="${2}"
     shift
   fi
   ;;
-  --evalue_caz=?*)
-  EVALUE_CAZ="${1#*=}" # Delete everything up to "=" and assign the remainder.
+  --evalue_caz_fam=?*)
+  EVALUE_CAZ_FAM="${1#*=}" # Delete everything up to "=" and assign the remainder.
   ;;
-  --evalue_caz=) # Handle the empty case
+  --evalue_caz_fam=) # Handle the empty case
+  printf 'Using default environment.\n' >&2
+  ;;     
+#############
+  --evalue_caz_subfam)
+  if [[ -n "${2}" ]]; then
+    EVALUE_CAZ_SUBFAM="${2}"
+    shift
+  fi
+  ;;
+  --evalue_caz_subfam=?*)
+  EVALUE_CAZ_SUBFAM="${1#*=}" # Delete everything up to "=" and assign the remainder.
+  ;;
+  --evalue_caz_subfam=) # Handle the empty case
   printf 'Using default environment.\n' >&2
   ;;     
 #############
@@ -357,6 +385,10 @@ fi
 ### 5. Define defaults
 ###############################################################################
 
+if [[ -z "${CAZ_SUBFAM_ANNOT}" ]]; then
+  CAZ_SUBFAM_ANNOT="f"
+fi
+
 if [[ -z "${CLEAN}" ]]; then
   CLEAN="f"
 fi
@@ -377,8 +409,12 @@ if [[ -z "${EVALUE_RES}" ]]; then
   EVALUE_RES="1e-15"
 fi
 
-if [[ -z "${EVALUE_CAZ}" ]]; then
-  EVALUE_CAZ="1e-15"
+if [[ -z "${EVALUE_CAZ_FAM}" ]]; then
+  EVALUE_CAZ_FAM="1e-15"
+fi
+
+if [[ -z "${EVALUE_CAZ_SUBFAM}" ]]; then
+  EVALUE_CAZ_SUBFAM="1e-15"
 fi
 
 if [[ -z "${EVALUE_HYD}" ]]; then
@@ -765,7 +801,9 @@ echo -e "# Computing CAZymes traits (module 7)\n ..." | handleoutput
 --output_dir "${OUTPUT_DIR}/caz" \
 --sample_name "${SAMPLE_NAME}" \
 --num_genes "${NUM_GENES}" \
---evalue "${EVALUE_CAZ}" \
+--caz_subfam_annot "${CAZ_SUBFAM_ANNOT}" \
+--evalue_caz_fam "${EVALUE_CAZ_FAM}" \
+--evalue_caz_subfam "${EVALUE_CAZ_SUBFAM}" \
 --nslots "${NSLOTS}" 2>&1 | handleoutput_all
 
 if [[ $? -ne 0 ]]; then
@@ -853,34 +891,91 @@ fi
 # 24. Compress large files
 ###############################################################################
 
-echo -e "# Compressing data\n ..." | handleoutput
+if [[ ${CLEAN} == "f" ]]; then
 
-"${pigz}" --processes "${NSLOTS}" "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.faa"
+  echo -e "# Compressing data\n ..." | handleoutput
 
-if [[ $? -ne 0 ]]; then
-  echo "compressing file ${SAMPLE_NAME}.faa failed"
-  exit 1
-fi 
+  # *.faa
+  "${pigz}" --processes "${NSLOTS}" "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.faa"
 
-"${pigz}" --processes "${NSLOTS}" "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.ffn"
+  if [[ $? -ne 0 ]]; then
+    echo "compressing file ${SAMPLE_NAME}.faa failed"
+    exit 1
+  fi 
 
-if [[ $? -ne 0 ]]; then
-  echo "compressing file ${SAMPLE_NAME}.ffn failed"
-  exit 1
-fi 
+  # *.ffn
+  "${pigz}" --processes "${NSLOTS}" "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.ffn"
+  
+  if [[ $? -ne 0 ]]; then
+    echo "compressing file ${SAMPLE_NAME}.ffn failed"
+    exit 1
+  fi 
 
-"${pigz}" --processes "${NSLOTS}" "${OUTPUT_DIR}/nuc/${SAMPLE_NAME}.info"
+  # *.info
+  "${pigz}" --processes "${NSLOTS}" "${OUTPUT_DIR}/nuc/${SAMPLE_NAME}.info"
 
-if [[ $? -ne 0 ]]; then
-  echo "compressing file ${SAMPLE_NAME}.info failed"
-  exit 1
-fi 
+  if [[ $? -ne 0 ]]; then
+    echo "compressing file ${SAMPLE_NAME}.info failed"
+    exit 1
+  fi 
+  
+  # *.hout
+  "${pigz}" --processes "${NSLOTS}" ${OUTPUT_DIR}/*/*.hout
+
+  if [[ $? -ne 0 ]]; then
+    echo "compressing files ${SAMPLE_NAME}.hout failed"
+    exit 1
+  fi 
+
+fi
 
 ###############################################################################
-# 25. Cleam uncompress files (if present)
+# 25. Clean
 ###############################################################################
 
-if [[ "${UNCOMPRESS}" == "t" ]]; then
+if [[ ${CLEAN} == "t" ]]; then
+
+  echo -e "# Cleaning data\n ..." | handleoutput
+
+  # *.faa
+  rm "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.faa"
+
+  if [[ $? -ne 0 ]]; then
+    echo "rm file ${SAMPLE_NAME}.faa failed"
+    exit 1
+  fi 
+
+  # *.ffn
+  rm "${OUTPUT_DIR}/orf/${SAMPLE_NAME}.ffn"
+  
+  if [[ $? -ne 0 ]]; then
+    echo "rm file ${SAMPLE_NAME}.ffn failed"
+    exit 1
+  fi 
+
+  # *.info
+  rm "${OUTPUT_DIR}/nuc/${SAMPLE_NAME}.info"
+
+  if [[ $? -ne 0 ]]; then
+    echo "rm file ${SAMPLE_NAME}.info failed"
+    exit 1
+  fi 
+  
+  # *.hout
+  rm ${OUTPUT_DIR}/*/*.hout
+
+  if [[ $? -ne 0 ]]; then
+    echo "rm files *.hout failed"
+    exit 1
+  fi 
+
+fi
+
+###############################################################################
+# 26. Clean uncompress infput fata file (if present)
+###############################################################################
+
+if [[ "${UNCOMPRESSED}" == "t" ]]; then
   rm "${INPUT_FILE_UNCOMPRESSED}"
   
   if [[ $? -ne "0" ]]; then
@@ -888,10 +983,8 @@ if [[ "${UNCOMPRESS}" == "t" ]]; then
   fi
 fi  
   
-
-
 ###############################################################################
-# 25. Exit status
+# 27. Exit status
 ###############################################################################
 
 echo -e "# Mg-traits exited with 0 errors" | handleoutput
