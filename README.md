@@ -27,7 +27,7 @@ Note: the first time you run this command it will download the docker image, and
 Usage: ./mg_traits.sh <input file> <output dir> <options>
 --help                          print this help
 --caz_subfam_annot t|f          annotate CAZyme subfamilies (default f)
---clean t|f                     remove intermediate files (i.e., *.info, *.ffn, *.faa, *.hout, *.uout) (default f)
+--clean t|f                     remove intermediate files (i.e., *.info, *.ffn, *.faa, *.hout) (default f)
 --confidence NUM                confidence value to run rdp bayes classifier (from 0 to 100; default 50)
 --evalue_acn NUM                evalue to filter reads for ACN computation (default 1e-15)
 --evalue_div NUM                evalue to filter reads for diversity estimation (default 1e-15)
